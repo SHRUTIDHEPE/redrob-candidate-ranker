@@ -1,4 +1,4 @@
-cat > README.md << 'EOF'
+
 # Intelligent Candidate Ranking System
 
 A production-grade candidate ranking system for the Redrob hackathon challenge using semantic feature engineering and hybrid scoring.
