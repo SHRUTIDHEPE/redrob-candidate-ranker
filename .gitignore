@@ -5,9 +5,7 @@ candidates.jsonl
 *.json
 sample_candidates.jsonl
 
-# Output
-submission.csv
-*.csv
+
 
 # Python
 __pycache__/

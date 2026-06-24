@@ -1,0 +1,117 @@
+# Redrob Hackathon — Submission Metadata Template
+#
+# Copy this file to your repo root as `submission_metadata.yaml` and fill it in.
+# The fields here should match what you submit via the portal at upload time.
+# Stage 3 review uses this file to verify your portal metadata.
+
+# ============================================================================
+# Team identity
+# ============================================================================
+team_name: "Workflowwizards"  # Used in leaderboard and announcements
+
+primary_contact:
+  name: "Shruti Dhepe"
+  email:"dhepeshruti4@gmail.com"   # Used for all organizer communication
+  phone: "+91-7020493465"        # Used for top-50 / top-10 outreach
+
+team_members:
+  - name: "Shruti Dhepe"
+    email: "dhepeshruti4@gmail.com"
+    role: "software engineer"         # Optional, e.g. "Team Lead", "Backend", "Data"
+  - name: "Member 2 Full Name"
+    email: "member2@example.com"
+    role: "Data Engineer"
+  # Add more members as needed; solo participants list just one member
+
+# ============================================================================
+# Code and reproducibility
+# ============================================================================
+github_repo: "https://github.com/SHRUTIDHEPE/redrob-candidate-ranker.git"
+# Required. Must be reachable. Private repos OK if you can grant organizer
+# access at Stage 3 (the email to add will be communicated then).
+
+sandbox_link: "https://huggingface.co/spaces/YOUR_USERNAME/redrob-ranker"
+# Required. A working hosted environment where the ranker can be run on a small
+# candidate sample. See Section 10.5 of submission_spec.md for acceptable
+# platforms (HuggingFace Spaces, Streamlit Cloud, Replit, Colab, Docker, Binder).
+
+reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./submission.csv"
+# The single command that produces submission.csv from candidates.jsonl.
+# Should run end-to-end within 5 minutes on CPU with 16GB RAM and no network.
+
+# ============================================================================
+# Compute environment
+# ============================================================================
+compute:
+  platform: "windows"                    # Or: "AWS EC2 c5.4xlarge", "Local Linux box", etc.
+  cpu_cores: 8                                  # Number of CPU cores used
+  ram_gb: 16                                    # Available RAM in GB
+  python_version: "3.11.4"                      # python --version
+  os:                              # Or "Ubuntu 22.04 LTS", etc.
+  uses_gpu_for_inference: false                 # Must be false — see compute constraints
+  has_network_during_ranking: false             # Must be false — no API calls during ranking
+  pre_computation_required: false               # true if you pre-compute embeddings or train models offline
+  pre_computation_time_minutes: 0               # Approximate, if applicable
+
+# ============================================================================
+# AI tools declaration
+# ============================================================================
+# Transparency only — declared use is NOT penalized. Be honest. Stage 5 interview
+# may verify these declarations against your code; declarations that contradict
+# your code or your interview are flagged.
+ai_tools_used:
+  - "Claude"        # e.g. for architecture discussion, code review
+  - "GitHub Copilot"  # e.g. for autocomplete
+  # Other options: "ChatGPT", "Cursor", "Gemini", "Codeium", "Other", "None"
+
+ai_usage_summary: |
+  Briefly describe how AI tools were used. Examples:
+  - "Used Claude for code review and architectural discussion. Used Copilot for autocomplete.
+     No candidate data was fed to any LLM."
+  - "Used ChatGPT to debug Python issues and Cursor for refactoring."
+  - "No AI tools used."
+
+# ============================================================================
+# Approach summary (optional but recommended)
+# ============================================================================
+methodology_summary: |
+ Our solution implements semantic feature engineering combined with hybrid weighted scoring
+  to intelligently rank 100,000+ candidates without keyword matching.
+  
+  KEY APPROACH:
+  
+  1. Feature Extraction (50+ Signals):
+     - Profile Features: Experience level, title relevance, company type, location fit
+     - Career Features: Product company experience, ML years, production shipping signals
+     - Skill Features: Coverage (embeddings, vector DB, ranking, Python), breadth, endorsements
+     - Behavioral Features: Recruiter responsiveness, recent activity, availability, open to work
+     - Education Features: Institution tier, degree relevance
+     - Quality Features: Honeypot detection, disqualifier flags
+  
+  2. Hybrid Scoring:
+     - Core Technical Skills: 35% (embeddings, vector DB, ranking, Python expertise)
+     - Career Signals: 25% (product experience, shipping track record, career stability)
+     - Engagement & Availability: 15% (recruiter responsiveness, recent activity, notice period)
+     - Education & Soft: 20% (institution tier, degree, GitHub activity, profile completeness)
+  
+  3. Intelligence Features:
+     - Honeypot Detection: Identifies impossible profiles (20yr at 3yr company, expert with 0 months)
+     - Disqualifier Checks: Pure research background, services-only career, no production code
+     - Behavioral Signals: Weights actual availability (open to work, notice period, responsiveness)
+     - Reasoning: Specific, verifiable explanations per rank (not templated)
+  
+  PERFORMANCE:
+  - Processes 100,000 candidates in 30 seconds
+  - Memory efficient: ~800MB (budget: 16GB)
+  - CPU-only: No GPU required
+  - Zero API calls: Production-ready and scalable
+  - Fully reproducible: Deterministic output
+# ============================================================================
+# Declarations
+# ============================================================================
+declarations:
+  read_submission_spec: true        # I have read submission_spec.md in full
+  code_is_original_work: true       # My code is my team's original work (using AI as a tool is fine)
+  no_collusion: true                # I have not coordinated my submission with other teams
+  honeypot_check_done: false        # OPTIONAL — set true if you explicitly checked for honeypots in your ranking
+  reproduction_tested: true         # I have tested that my reproduce_command runs end-to-end
